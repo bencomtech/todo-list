@@ -1,7 +1,11 @@
 import React from 'react'
 
+import NewTodo from '../containers/newTodo'
+
 const App = () => (
-  <div>App</div>
+  <div>
+    <NewTodo />
+  </div>
 )
 
 export default App
