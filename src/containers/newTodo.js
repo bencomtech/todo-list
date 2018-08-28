@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withFirebase } from 'react-redux-firebase'
-import { Form, Input, Icon } from 'antd'
+import { Form, Input, Icon, message } from 'antd'
 
 class NewTodo extends Component {
   handleSubmit = (event) => {
@@ -15,10 +15,10 @@ class NewTodo extends Component {
           done: false,
           timestamp: firebase.database.ServerValue.TIMESTAMP
         }).then(() => {
-          alert("เพิ่มรายการงานเรียบร้อย")
-          this.setState({ content: '' })
+          message.success("เพิ่มรายการงานเรียบร้อย")
+          form.setFieldsValue({ content: '' })
         }).catch(error => {
-          alert(`ไม่สามารถเพิ่มรายการงาน (${error.message})`)
+          message.error(`ไม่สามารถเพิ่มรายการงาน (${error.message})`)
         })
       }
     })
