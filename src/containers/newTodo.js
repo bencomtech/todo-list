@@ -1,48 +1,47 @@
 import React, { Component } from 'react'
 import { withFirebase } from 'react-redux-firebase'
+import { Form, Input, Icon, message } from 'antd'
 
 class NewTodo extends Component {
-  constructor(props) {
-    super(props)
+  handleSubmit = (event) => {
+    event.preventDefault()
 
-    this.state = { content: '' }
-  }
+    const { firebase, form } = this.props
 
-  handleChange = (event) => {
-    this.setState({ content: event.target.value })
-  }
-
-  handleKeyPress = (event) => {
-    const { firebase } = this.props
-    const { content } = this.state
-
-    if (event.key === 'Enter') {
-      firebase.push('/todos', {
-        content: content,
-        done: false,
-        timestamp: firebase.database.ServerValue.TIMESTAMP
-      }).then(() => {
-        alert("เพิ่มรายการงานเรียบร้อย")
-        this.setState({ content: '' })
-      }).catch(error => {
-        alert(`ไม่สามารถเพิ่มรายการงาน (${error.message})`)
-      })
-    }
+    form.validateFields((err, values) => {
+      if (!err) {
+        firebase.push('/todos', {
+          content: values.content,
+          done: false,
+          timestamp: firebase.database.ServerValue.TIMESTAMP
+        }).then(() => {
+          message.success("เพิ่มรายการงานเรียบร้อย")
+          form.setFieldsValue({ content: '' })
+        }).catch(error => {
+          message.error(`ไม่สามารถเพิ่มรายการงาน (${error.message})`)
+        })
+      }
+    })
   }
 
   render() {
+    const { getFieldDecorator } = this.props.form
+
     return (
-      <div>
-        <input
-          type='text'
-          onChange={this.handleChange}
-          onKeyPress={this.handleKeyPress}
-          value={this.state.content}
-          autoFocus
-        />
-      </div>
+      <Form onSubmit={this.handleSubmit}>
+        <Form.Item>
+          {getFieldDecorator('content', {
+            rules: [{ required: true, message: 'กรุณากรอกชื่อรายการงาน!' }],
+          })(
+            <Input
+              prefix={<Icon type="plus" />}
+              placeholder="เพิ่มรายการงาน"
+            />
+          )}
+        </Form.Item>
+      </Form>
     )
   }
 }
 
-export default withFirebase(NewTodo)
+export default Form.create()(withFirebase(NewTodo))
