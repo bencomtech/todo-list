@@ -8,3 +8,5 @@ export const CONFIRM_TITLE = "ยืนยันการลบรายกา�
 export const CONFIRM_CONTENT = "คุณต้องการลบรายการงานใช่หรือไม่ ?"
 export const CONFIRM_OK = "ลบ"
 export const CONFIRM_CANCEL = "ยกเลิก"
+export const FORM_CONTENT_MESSAGE = "กรุณากรอกชื่อรายการงาน"
+export const INPUT_CONTENT_PLACEHOLDER = "เพิ่มรายการงาน"
