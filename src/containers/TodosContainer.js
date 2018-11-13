@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { firebaseConnect, isLoaded } from 'react-redux-firebase'
-import { Spin, Modal, message } from 'antd'
-import SpinContainer from '../components/SpinContainer'
+import { Modal, message } from 'antd'
+import Spin from '../components/Spin'
 import TodoList from '../components/TodoList'
 import * as MESSAGE from '../constants/messages'
 
@@ -36,11 +36,7 @@ class TodosContainer extends Component {
     const { todos } = this.props
 
     if (!isLoaded(todos)) {
-      return (
-        <SpinContainer>
-          <Spin />
-        </SpinContainer>
-      )
+      return <Spin />
     }
 
     return <TodoList
