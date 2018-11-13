@@ -7,7 +7,7 @@ import firebase from 'firebase/app'
 import 'firebase/database'
 import 'antd/dist/antd.css'
 
-import App from './components/app'
+import App from './components/App'
 import firebaseConfig from './firebaseConfig'
 import rootReducer from './reducers'
 import registerServiceWorker from './registerServiceWorker'
